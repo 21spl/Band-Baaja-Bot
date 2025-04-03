@@ -44,5 +44,20 @@ agent = CodeAgent(
     max_print_outputs_length=None,
     prompt_templates=prompt_templates
 )
-if __name__ == "__main__":
-    GradioUI(agent).launch()
+
+
+import gradio as gr
+
+def agent_response(user_input):
+    return agent.run(user_input)
+
+with gr.Blocks() as demo:
+    gr.Markdown("# 🎩 Band Baaja Bot - Your Wedding Assistant! 💍")
+    with gr.Row():
+        user_input = gr.Textbox(label="Your Request", placeholder="Ask me anything about wedding planning...")
+    output = gr.Textbox(label="Agent Response")
+    submit = gr.Button("Submit")
+    
+    submit.click(agent_response, inputs=user_input, outputs=output)
+
+demo.launch()
