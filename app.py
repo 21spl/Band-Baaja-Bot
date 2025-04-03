@@ -55,19 +55,19 @@ def agent_response(prompt):
     response = agent.run(prompt)
     return response  # Gradio will handle Markdown rendering
 
-# Create Gradio UI
+# Build UI
 with gr.Blocks(theme=gr.themes.Soft()) as demo:
-    gr.Markdown("# 🤖 AI Wedding Planner Agent")
-    gr.Markdown("### Ask the agent anything about wedding planning, catering, and more!")
+    gr.Markdown("## 🤖 AI Wedding Planner Agent")
+    gr.Markdown("Ask the agent anything about wedding planning, catering, and more!")
 
     with gr.Row():
-        input_box = gr.Textbox(placeholder="Enter your request...", lines=2)
+        user_input = gr.Textbox(label="Enter your request...", interactive=True)
         submit_button = gr.Button("Submit")
 
-    output_box = gr.Markdown()
+    output = gr.Markdown("")  # Output area
 
-    submit_button.click(agent_response, inputs=input_box, outputs=output_box)
+    submit_button.click(process_request, inputs=user_input, outputs=output)
 
-# Run the Gradio app
+# Launch UI
 if __name__ == "__main__":
     demo.launch()
