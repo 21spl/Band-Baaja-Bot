@@ -48,12 +48,7 @@ agent = CodeAgent(
 
 
 
-
-
-
-
-
-
+import gradio as gr
 
 # Function to interact with the agent
 def agent_response(prompt):
