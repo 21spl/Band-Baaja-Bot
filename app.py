@@ -46,18 +46,33 @@ agent = CodeAgent(
 )
 
 
-import gradio as gr
 
-def agent_response(user_input):
-    return agent.run(user_input)
 
-with gr.Blocks() as demo:
-    gr.Markdown("# 🎩 Band Baaja Bot - Your Wedding Assistant! 💍")
+
+
+
+
+
+
+
+# Function to interact with the agent
+def agent_response(prompt):
+    response = agent.run(prompt)
+    return response  # Gradio will handle Markdown rendering
+
+# Create Gradio UI
+with gr.Blocks(theme=gr.themes.Soft()) as demo:
+    gr.Markdown("# 🤖 AI Wedding Planner Agent")
+    gr.Markdown("### Ask the agent anything about wedding planning, catering, and more!")
+
     with gr.Row():
-        user_input = gr.Textbox(label="Your Request", placeholder="Ask me anything about wedding planning...")
-    output = gr.Textbox(label="Agent Response")
-    submit = gr.Button("Submit")
-    
-    submit.click(agent_response, inputs=user_input, outputs=output)
+        input_box = gr.Textbox(placeholder="Enter your request...", lines=2)
+        submit_button = gr.Button("Submit")
 
-demo.launch()
+    output_box = gr.Markdown()
+
+    submit_button.click(agent_response, inputs=input_box, outputs=output_box)
+
+# Run the Gradio app
+if __name__ == "__main__":
+    demo.launch()
