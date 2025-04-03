@@ -3,3 +3,4 @@ markdownify
 requests
 smolagents
 smolagents[litellm]
+gradio
